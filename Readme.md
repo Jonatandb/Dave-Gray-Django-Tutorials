@@ -35,3 +35,39 @@ Visit App:
   - http://localhost:8000
 
 ---
+
+## Lesson 1:
+- App creation
+- App configuration
+- Using of namespaced templates
+- VSCode Emmet configuration for Django HTML files
+- Creation and use of "Base layout" template
+
+Create a new Django app:
+
+    py manage.py startapp posts
+
+Add new 'posts' app to INSTALLED_APPS on settings.py
+
+Add new 'templates/layout.html' file with ```{% block title %}``` and  ```{% block content %}``` placeholders
+
+Update 'homepage.html' and 'about.html' to extends and use base layout by adding ```{% extends 'layout.html' %}``` and specifing blocks content.
+
+Also add a new posts/templates/posts/posts.list.html file with ```{% extends 'layout.html' %}```
+
+Add posts/urls.py and update lesson1/urls.py to include the posts urls.
+
+Start app:
+
+    cd lesson1
+
+    py manage.py runserver
+
+Visit App:
+
+  - http://localhost:8000
+  - http://localhost:8000/about
+  - http://localhost:8000/posts
+
+
+

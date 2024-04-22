@@ -3,6 +3,10 @@
 
 ---
 
+Note: To follow the tutorial playlist and make a new project for each lesson, I made a script called '_**clone_folder_and_increase_version.py**_' that creates a copy of the previous lesson folder and updates version numbers (in folders and files) accordingly (Thanks ChatGPT ♥)
+
+---
+
 ## Lesson 0:
 - Project creation
 - Rendering of html templates

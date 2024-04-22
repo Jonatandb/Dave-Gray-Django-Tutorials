@@ -34,6 +34,8 @@ Visit App:
 
   - http://localhost:8000
 
+![alt text](image.png)
+
 ---
 
 ## Lesson 1:
@@ -69,5 +71,8 @@ Visit App:
   - http://localhost:8000/about
   - http://localhost:8000/posts
 
+![alt text](image-1.png)
+
+![alt text](image-2.png)
 
 

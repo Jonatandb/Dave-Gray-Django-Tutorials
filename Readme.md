@@ -103,3 +103,49 @@ Apply migrations:
 
     py manage.py migrate
   - This creates Post model (_**table**_) on the database.
+
+
+---
+
+## Lesson 3:
+
+- ORM Intro
+- Adding **'\__str\__'** method to Post model to show post title whenever a post is shown:
+
+      def __str__(self):
+        return self.title
+
+A quick way to try and play with the Django ORM is by using the shell this way:
+
+    py manage.py shell
+
+From there the Post model can be imported to perform several operations:
+
+    from posts.models import Post
+
+To create a Post object:
+
+    p = Post()
+
+To set values for the attributes:
+
+    p.title = "First Post"
+    p.body = "First Post body text"
+
+Now the Post object can be saved into the database:
+
+    p.save()
+
+Finally it's possible to get all posts from the database:
+
+    Post.objects.all()
+
+  - Expected result:
+
+      <QuerySet [<Post: First post>]>
+
+To exit from the shell, execute:
+
+    exit()
+
+![alt text](image-3.png)

@@ -76,3 +76,26 @@ Visit App:
 ![alt text](image-2.png)
 
 
+---
+
+## Lesson 2:
+
+- Model and migrations
+
+Create a class called Post inside posts/models.py (must inherit from models.Model)
+
+Define fields (more info: https://docs.djangoproject.com/en/5.0/ref/models/fields/)
+
+Apply base app migrations by running:
+
+    py manage.py migrate
+
+Create migration for new Post model:
+
+    py manage.py makemigrations
+  - A new 'posts\migrations\0001_initial.py' file will be created.
+
+Apply migrations:
+
+    py manage.py migrate
+  - This creates Post model (_**table**_) on the database.

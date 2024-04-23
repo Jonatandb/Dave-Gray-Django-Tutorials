@@ -157,7 +157,12 @@ To exit from the shell, execute:
 ## Lesson 4:
 
 - Django Admin Introduction
-- An user must be created to access to /admin panel:
+- Admin panel user creation
+- Model registration to show it in admin panel
+- Django ORM Post model used to retrive ordered posts
+- Use of Python code in Jinja HTML templates to itereate and render posts
+
+An user must be created to access to /admin panel:
 
       py manage.py createsuperuser
 
@@ -186,7 +191,7 @@ To exit from the shell, execute:
 - Finally, the HTML template must iterate the posts list to show the posts, it can be done by using a for loop:
 
       {% for post in posts %}
-        <article  class="posts">
+        <article>
           <h2>{{ post.title }}</h2>
           <p>{{ post.date }}</p>
           <p>{{ post.body }}</p>

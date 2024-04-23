@@ -149,3 +149,48 @@ To exit from the shell, execute:
     exit()
 
 ![alt text](image-3.png)
+
+
+
+---
+
+## Lesson 4:
+
+- Django Admin Introduction
+- An user must be created to access to /admin panel:
+
+      py manage.py createsuperuser
+
+  - User created: admin
+  - Password: admin123
+
+- Posts can be manipulated by using the admin panel, but first it's requeried to "register" the Post model:
+  - Add to '**_posts/admin.py_**', the following lines:
+
+
+        from .models import Post
+        admin.site.register(Post)
+
+  - Next, access to http://localhost:8000/admin
+    - A CMS web interface is available to manipulate (CRUD operations available) posts, users and groups.
+
+![alt text](image-5.png)
+
+- To show posts list, posts must be retrieved from the database by using Django ORM, and then passing it to the render method:
+
+      def posts_list(request):
+        posts = Post.objects.all().order_by('-date')
+        return render(request, 'posts/posts_list.html', { 'posts': posts })
+    - By using '-date' param, it will retrive posts in descending order.
+
+- Finally, the HTML template must iterate the posts list to show the posts, it can be done by using a for loop:
+
+      {% for post in posts %}
+        <article  class="posts">
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.date }}</p>
+          <p>{{ post.body }}</p>
+        </article>
+      {% endfor %}
+
+![alt text](image-4.png)

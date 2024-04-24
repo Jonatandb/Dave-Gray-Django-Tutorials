@@ -199,3 +199,37 @@ An user must be created to access to /admin panel:
       {% endfor %}
 
 ![alt text](image-4.png)
+
+
+---
+
+## Lesson 5: Pages, URLs & Slugs
+
+- URL path's names (aliases) and using URL name's on anchor tags
+- Setting app_name to app url's file
+- Using 'slug' Django path converter
+
+Setting _**app_name**_ in _'\posts\urls.py'_ to be able to have the same url 'name' in different _**urls.py**_ app files.
+  - To do this, just add a variable with the app name to _'posts/urls.py'_ app file:
+
+        app_name = 'posts'
+
+Setting name to an url path in _'\posts\urls.py'_:
+
+    path('', views.posts_list, name="list")
+
+  - Now, whenever an anchor tags is created, it can use app name and url name, like this:
+
+    ```<a href="{% url 'posts:list' %}">Posts</a>```
+
+Setting url path config in URL in '\posts\urls.py' for use of the post's 'slug':
+
+    path('<slug:slug>', views.post_page, name="page"),
+
+  - First 'slug' term tells Django and slug will be used in URL, second 'slug' term specify the Post model field which will be used as slug for creation of each Post URL.
+  - #### Before this works, all posts must have slug field complete with some value like "my-first-post", "another-post", etc. ####
+
+Finally, it's possible now to visit a specific post page specifing the post slug in URL, ex:
+  - http://127.0.0.1:8000/posts/first-post
+
+  ![alt text](image-6.png)

@@ -61,6 +61,7 @@ Finally, to be able to use static files, the following code must be added to 'se
   - Now, static files must be placed into '/static' root folder, and can be referenced from 'homepage.html' by using '{% static %} syntax':
 
       ```<link rel="stylesheet" href="{% static 'css/styles.css' %}">```
+
       ```<script src="{% static 'js/index.js' %}" defer></script>```
 
 

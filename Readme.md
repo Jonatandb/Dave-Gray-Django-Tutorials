@@ -47,7 +47,7 @@ To use it, a 'path' must be specified in urls.py file, inside of 'urlpatterns' l
 
     path('', views.homepage, name="homepage"),
 
-By default Django will look for 'homepage.html' inside 'templetas' folder in the root of the project.
+By default Django will look for 'homepage.html' inside 'templates' folder in the root of the project.
 
 Finally, to be able to use static files, the following code must be added to 'settings.py' file:
 

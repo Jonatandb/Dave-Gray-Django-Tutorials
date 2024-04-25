@@ -319,3 +319,51 @@ Finally, it's possible now to visit a specific post page specifing the post slug
       }
 
 ![alt text](image-7.png)
+
+
+---
+
+## Lesson 7: Adding a new 'Users' app
+- App creation:
+
+      py manage.py startapp users
+
+- App registration in 'lesson7/lesson7/settings.py':
+
+      INSTALLED_APPS = [
+          ... # Do not touch anything here
+          'posts',
+          'users' # <-- Add this line
+      ]
+
+- Add url path to users app in 'lesson7/lesson7/urls.py' file:
+
+      path('posts/', include('posts.urls')), # <-- Below this line
+      path('users/', include('users.urls')), # <-- Add this new line
+
+- Adding a new route path in a new 'users/urls.py' file:
+
+      app_name = 'users'
+
+      urlpatterns = [
+          path('register/', views.register, name="register"),
+      ]
+
+- Adding a new view for register page in 'users/views.py' file:
+
+      def register(request):
+        return render(request, 'users/register.html')
+
+- Creating the register view HTML template in 'users/templates/users/register.html' which extends the base layout:
+
+      {% extends 'layout.html' %}
+
+      {% block title %}
+        Register a New User
+      {% endblock %}
+
+      {% block content %}
+        <h2>Register a New User</h2>
+      {% endblock %}
+
+![alt text](image-8.png)

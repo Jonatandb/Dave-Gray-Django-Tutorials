@@ -38,6 +38,33 @@ Visit App:
 
   - http://localhost:8000
 
+To render HTML templates, a 'view' function must be created in views.py file:
+
+    def homepage(request):
+      return render(request, 'homepage.html')
+
+To use it, a 'path' must be specified in urls.py file, inside of 'urlpatterns' list:
+
+    path('', views.homepage, name="homepage"),
+
+By default Django will look for 'homepage.html' inside 'templetas' folder in the root of the project.
+
+Finally, to be able to use static files, the following code must be added to 'settings.py' file:
+
+    import os # Add this at the top
+
+    # Add this at the bottom of settings.py
+    STATICFILES_DIRS = [
+      os.path.join(BASE_DIR, 'static'),
+    ]
+
+  - Now, static files must be placed into '/static' root folder, and can be referenced from 'homepage.html' by using '{% static %} syntax':
+
+      ```<link rel="stylesheet" href="{% static 'css/styles.css' %}">```
+      ```<script src="{% static 'js/index.js' %}" defer></script>```
+
+
+
 ![alt text](image.png)
 
 ---
@@ -233,3 +260,61 @@ Finally, it's possible now to visit a specific post page specifing the post slug
   - http://127.0.0.1:8000/posts/first-post
 
   ![alt text](image-6.png)
+
+
+
+---
+
+## Lesson 6: Upload & Display Images
+
+- Update 'settings.py' adding at the bottom:
+
+      MEDIA_URL = 'media/'
+      MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+- Create a 'media' root folder.
+- Update main 'urls.py' to add:
+
+      from django.conf.urls.static import static
+      from django.conf import settings
+
+      urlpatterns = [
+        ... # Do not touch this part
+      ]
+
+      # Add this:
+      urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+- Install Pillow, that allows to use 'models.ImageFiled' in models:
+
+      pip install Pillow
+
+- Update Post model in 'posts/models.py', adding a new 'banner' field:
+
+      banner = models.ImageField(default='fallback.png', blank=True)
+
+- Make and execute migrations:
+
+      py manage.py makemigrations
+      py manage.py migrate
+
+- Go to admin panel and update existing posts adding the value for the banner field (by default 'fallback.png' will be used for all posts)
+
+- Make sure '/media' folder and 'media/fallback.png' file exists.
+
+- Go to 'posts/templates/post_page.html' and add an img tag to show the image of the new 'banner' field
+
+      <img class="banner"
+            src="{{ post.banner.url }}"
+            alt="{{ post.title}}"
+      />
+
+- Update CSS file '/static/css/styles.css' adding:
+
+      .banner {
+        display: block;
+        width: 100%;
+        max-width: 800px;
+      }
+
+![alt text](image-7.png)

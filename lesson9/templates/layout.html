@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        Django App
+      {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="{% static 'js/index.js' %}" defer></script>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'homepage' %}">
+        <span role="img" aria-label="Home" title="Home">🏠</span>
+      </a> |
+      <a href="{% url 'about' %}">
+        <span role="img" aria-label="About" title="About">😃</span>
+      </a> |
+      <a href="{% url 'posts:list' %}">
+        <span role="img" aria-label="Posts" title="Posts">📰</span>
+      </a> |
+      <a href="{% url 'users:register' %}">
+        <span role="img" aria-label="Register" title="Register">🚀</span>
+      </a> |
+      <a href="{% url 'users:login' %}">
+        <span role="img" aria-label="Login" title="Login">🔏</span>
+      </a>
+    </nav>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

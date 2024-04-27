@@ -402,3 +402,30 @@ Finally, it's possible now to visit a specific post page specifing the post slug
 
 
 ![alt text](image-9.png)
+
+
+---
+
+## Lesson 9: Login Form and User Authentication
+- Updated navigation bar to include a login link.
+- Updated '**_users/urls.py_**' to include new 'login/' path:
+
+      path('login/', views.login_view, name="login")
+
+- Added '**_users/templates/login.html_**' page (similar to register.html)
+- Added a new **_login_view_** method in '**_users/views.py_**' to manage the user login by using **_AuthenticationForm_** and **_login_** Django built-in functionalities:
+
+      from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+      from django.contrib.auth import login
+
+      def login_view(request):
+          if request.method == 'POST':
+              form = AuthenticationForm(data=request.POST)
+              if form.is_valid():
+                  login(request, form.get_user())
+                  return redirect('posts:list')
+          else:
+              form = AuthenticationForm()
+          return render(request, 'users/login.html', {'form': form})
+
+![alt text](image-10.png)

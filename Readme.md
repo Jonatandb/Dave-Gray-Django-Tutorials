@@ -375,6 +375,8 @@ Finally, it's possible now to visit a specific post page specifing the post slug
 ## Lesson 8: Adding user registration form
 - Updating users register view ('_/users/views.py/_') to be able to create and then validate registration form, by using Django UserCreationForm functionality:
 
+      from django.contrib.auth.forms import UserCreationForm
+
       def register(request):
           if request.method == 'POST':
               form = UserCreationForm(request.POST)
@@ -385,7 +387,7 @@ Finally, it's possible now to visit a specific post page specifing the post slug
               form = UserCreationForm()
           return render(request, 'users/register.html', {'form': form})
 
-- Updating HTML template to include in a form, Django form created (it also will show validations errors, if any occur):
+- Updating HTML template to include the Django form created (it will also show validations errors, if any occur):
 
       {% block content %}
         <h1>Register a New User</h1>

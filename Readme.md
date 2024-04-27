@@ -387,7 +387,7 @@ Finally, it's possible now to visit a specific post page specifing the post slug
               form = UserCreationForm()
           return render(request, 'users/register.html', {'form': form})
 
-- Updating HTML template to include the Django form created (it will also show validations errors, if any occur):
+- Updating HTML template _'users\templates\users\register.html'_ to include the Django form created (it will also show validations errors, if any occur):
 
       {% block content %}
         <h1>Register a New User</h1>
@@ -398,7 +398,7 @@ Finally, it's possible now to visit a specific post page specifing the post slug
         </form>
       {% endblock %}
 
-  - _**{% csrf_token %}**_ is required to allow Django verify that post data is coming from the same application, and be able to manage/avoid _**Cros site reference forgery**_.
+  - _**{% csrf_token %}**_ is required to allow Django verify that post data is coming from the same application, and be able to manage/avoid _**Cross site reference forgery**_.
 
 
 ![alt text](image-9.png)

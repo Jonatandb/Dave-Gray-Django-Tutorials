@@ -367,3 +367,31 @@ Finally, it's possible now to visit a specific post page specifing the post slug
       {% endblock %}
 
 ![alt text](image-8.png)
+
+
+
+---
+
+## Lesson 8: Adding user registration route and form
+- Updating users register view ('_/users/views.py/_') to create and then validate registration form, by using Django UserCreationForm functionality:
+
+      from django.contrib.auth.forms import UserCreationForm
+      def register(request):
+        form = UserCreationForm()
+        return render(request, 'users/register.html', {'form': form})
+
+- Updating HTML template to include in a form, Django form created (it also will show validations errors, if any occur):
+
+      {% block content %}
+        <h1>Register a New User</h1>
+        <form action="" class="form-with-validation" method="post">
+          {% csrf_token %}
+          {{ form }}
+          <button class="form-submit">Submit</button>
+        </form>
+      {% endblock %}
+
+  - _**{% csrf_token %}**_ is required to allow Django verify that post data is coming from the same application, and be able to manage/avoid _**Cros site reference forgery**_.
+
+
+![alt text](image-9.png)

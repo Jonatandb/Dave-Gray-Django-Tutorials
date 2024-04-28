@@ -537,9 +537,11 @@ Finally, it's possible now to visit a specific post page specifing the post slug
       </nav>
 
 - User not authenticated:
+
 ![alt text](image-13.png)
 
 - User authenticated:
+
 ![alt text](image-14.png)
 
 

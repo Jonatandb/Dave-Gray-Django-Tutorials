@@ -467,11 +467,10 @@ Finally, it's possible now to visit a specific post page specifing the post slug
       def post_new(request):
         return render(request, 'posts/post_new.html')
 
+- URL when an unauthenticated user try to access to '_/posts/new-post_':
+
 ![alt text](image-11.png)
 
-- After login:
-
-![alt text](image-12.png)
 
 
 #### Using the '_next_' query param (if it exists) to redirect the user to the page from where he was redirect to login (surely because the route was protected):
@@ -503,6 +502,9 @@ Finally, it's possible now to visit a specific post page specifing the post slug
           else:
               ...
 
+- After a successful login:
+
+![alt text](image-12.png)
 
 #### Conditional rendering of menu options depending on if the user is logged in:
 - Updated navbar using '_**if user.is_authenticated**_':

@@ -429,3 +429,117 @@ Finally, it's possible now to visit a specific post page specifing the post slug
           return render(request, 'users/login.html', {'form': form})
 
 ![alt text](image-10.png)
+
+
+---
+
+## Lesson 10: User Authorization
+#### Added logout functionality:
+- Added logout view to '**_users/views.py_**':
+
+      def logout_view(request):
+          if request.method == 'POST':
+              logout(request)
+              return redirect('posts:list')
+
+- Added logout url path to '**_users/urls.py_**':
+
+      path('logout/', views.logout_view, name="logout"),
+
+- Added logout navbar button to layout template '**_templates/layout.html_**':
+
+      <form class="logout" action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <button class="logout-button" aria-label="User Logout" title="User Logout">👋🏻</button>
+      </form>
+
+#### Protected route -> New Post:
+- Added '_new-post/_' url path to '**_posts/urls.py_**':
+
+      path('new-post/', views.post_new, name="new"),
+
+- Added a new html template for the new post page: '**_posts/templates/post_new.html_**'.
+- Added a new navbar link to the new route '**_posts/new-post_**'.
+- Added the view for new post page with the '**_@login_required()_**' decorator that will redirect the user if he is not logged in:
+
+
+      @login_required(login_url='/users/login/')
+      def post_new(request):
+        return render(request, 'posts/post_new.html')
+
+![alt text](image-11.png)
+
+- After login:
+
+![alt text](image-12.png)
+
+
+#### Using the '_next_' query param (if it exists) to redirect the user to the page from where he was redirect to login (surely because the route was protected):
+
+- Updating the users login page to save the '_next_' parameter, in a hidden input, if it exists:
+
+      {% block content %}
+        <h1>Login User</h1>
+        <form action="" class="form-with-validation" method="post">
+          {% csrf_token %}
+          {{ form }}
+          {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}" />
+          {% endif %}
+          <button class="form-submit">Submit</button>
+        </form>
+      {% endblock %}
+
+- Updating the login_view functionality to redirect the user to the correct page depending on if the _next_ parameter exists in the url:
+
+      def login_view(request):
+          ...
+              if form.is_valid():
+                  login(request, form.get_user())
+                  if 'next' in request.POST:
+                      return redirect(request.POST.get('next'))
+                  else:
+                      return redirect('posts:list')
+          else:
+              ...
+
+
+#### Conditional rendering of menu options depending on if the user is logged in:
+- Updated navbar using '_**if user.is_authenticated**_':
+
+      <nav>
+        <a href="{% url 'homepage' %}">
+          <span role="img" aria-label="Home" title="Home">🏠</span>
+        </a> |
+        <a href="{% url 'about' %}">
+          <span role="img" aria-label="About" title="About">😃</span>
+        </a> |
+        <a href="{% url 'posts:list' %}">
+          <span role="img" aria-label="Posts" title="Posts">📰</span>
+        </a> |
+
+        {% if user.is_authenticated %}
+          <a href="{% url 'posts:new' %}">
+            <span role="img" aria-label="New Post" title="New Post">🆕</span>
+          </a> |
+          <form class="logout" action="{% url 'users:logout' %}" method="post">
+            {% csrf_token %}
+            <button class="logout-button" aria-label="User Logout" title="User Logout">👋🏻</button>
+          </form>
+        {% else %}
+          <a href="{% url 'users:register' %}">
+            <span role="img" aria-label="Register" title="Register">🚀</span>
+          </a> |
+          <a href="{% url 'users:login' %}">
+            <span role="img" aria-label="Login" title="Login">🔏</span>
+          </a>
+        {% endif %}
+      </nav>
+
+- User not authenticated:
+![alt text](image-13.png)
+
+- User authenticated:
+![alt text](image-14.png)
+
+

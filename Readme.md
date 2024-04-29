@@ -659,3 +659,9 @@ Finally, it's possible now to visit a specific post page specifing the post slug
   - https://docs.digitalocean.com/developer-center/deploy-a-django-app-on-app-platform/
   - https://dev.to/osahenru/using-railway-app-to-deploy-your-django-project-3ah1
   - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html
+
+
+### Replit deploy available (just clone and then click _Run_):
+- https://replit.com/@Jonatandb/Dave-Gray-Django-Tutorials
+
+[![Replit deploy available](image-17.png)](https://replit.com/@Jonatandb/Dave-Gray-Django-Tutorials)

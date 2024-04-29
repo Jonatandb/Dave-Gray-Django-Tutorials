@@ -547,3 +547,64 @@ Finally, it's possible now to visit a specific post page specifing the post slug
 ![alt text](image-14.png)
 
 
+---
+
+## Lesson 11: Django Forms
+
+#### Added a new Author field to post model
+
+- Delete all posts since now the authenticated user will be the author each time he creates a new post.
+- Update the Post model to include a new foreign key field Author related to the user:
+
+      from django.contrib.auth.models import User
+
+      class Post(models.Model):
+        ... other fileds...
+        author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+- Execute makemigrations and migrate to update the database table for Post model.
+
+#### Added a new _CreatePost_ class inside a new '_posts/forms.py_' file
+- It extends from **_forms.ModelForm_** in django forms:
+
+      from django import forms
+
+      class CreatePost(forms.ModelForm):
+        class Meta:
+          model = models.Post
+          fields = ['title','body','slug','banner']
+
+#### Updated post_new view in '_posts/views.py_' to instantiate and use _CreatePost_ class and pass it to the post_new HTML template:
+
+      @login_required(login_url='/users/login/')
+      def post_new(request):
+        if request.method == 'POST':
+          form = CreatePost(request.POST, request.FILES)
+          if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+            return redirect('posts:list')
+        else:
+          form = CreatePost()
+        return render(request, 'posts/post_new.html', {'form': form})
+
+#### Updated the post_new template to show the new post form:
+
+        <section>
+          <h2>New Post</h2>
+          <form action="{% url 'posts:new' %}" method="post" class="form-with-validation" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <button class="form-submit" type="submit">Add Post</button>
+          </form>
+        </section>
+
+    - Very important: Add _**enctype="multipart/form-data"**_ to form meta tag, so it can be used to correctly upload the selected image.
+
+#### Updated the _post_page_ and/or the _post_list_ HTML template to show the author of the each post:
+
+      <p>{{ post.date }} by {{ post.author }}</p>
+
+![alt text](image-16.png)
+
+![alt text](image-15.png)

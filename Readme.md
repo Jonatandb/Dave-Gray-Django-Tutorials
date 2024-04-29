@@ -1,6 +1,13 @@
 
 # [Dave Gray - Django Tutorials](https://www.youtube.com/playlist?list=PL0Zuz27SZ-6NamGNr7dEqzNFEcZ_FAUVX)
 
+- Posts app with:
+  - User registration
+  - User authentication
+  - Posts listing
+  - Posts creation
+  - Protected routes
+
 ---
 
 Note: To follow the tutorial playlist and make a new project for each lesson, I made a script called '_**clone_folder_and_increase_version.py**_' that creates a copy of the previous lesson folder and updates version numbers (in folders and files) accordingly (Thanks ChatGPT ♥)
@@ -298,6 +305,10 @@ Finally, it's possible now to visit a specific post page specifing the post slug
 
       py manage.py makemigrations
       py manage.py migrate
+
+- Create a _requirements.txt_ file:
+
+      pip freeze > requirements.txt
 
 - Go to admin panel and update existing posts adding the value for the banner field (by default 'fallback.png' will be used for all posts)
 

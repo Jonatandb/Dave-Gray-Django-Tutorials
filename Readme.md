@@ -608,3 +608,54 @@ Finally, it's possible now to visit a specific post page specifing the post slug
 ![alt text](image-16.png)
 
 ![alt text](image-15.png)
+
+---
+---
+
+## Lesson 12 - Optional changes for a ready-for-production app:
+
+#### Update of _settings.py_:
+  - Remove import os
+  - Update DEBUG variable to False value
+  - Update ALLOWED_HOSTS variable with known hostnames, ex: 'localhost', '127.0.0.1'.
+  - Add a STATIC_ROOT variable, update STATICFILES_DIRS variable and then add another new MEDIA_ROOT variable as follows:
+
+        STATIC_URL = 'static/'
+        MEDIA_URL = 'media/'
+
+        STATIC_ROOT = BASE_DIR / 'assets'
+        MEDIA_ROOT = BASE_DIR / 'media'
+        STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+
+    Finally, execute:
+
+          py manage.py collectstatic
+
+    This will create a new '_assets_' directory containing all static files from the hole project.
+
+#### Update of _urls.py_ main project file:
+  - Add a new import:
+
+        from django.views.static import serve
+
+  - Add re_path import:
+
+        from django.urls import path, include, re_path
+  - Add two new patterns to _urlpatterns_ list:
+
+        urlpatterns = [
+          re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+          re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+          ... rest of paths...
+  - Remove or comment the last _urlpatterns_ line:
+
+        #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+---
+
+# Deploy steps on common online services:
+  - https://docs.render.com/deploy-django
+  - https://blog.replit.com/deploying-django
+  - https://docs.digitalocean.com/developer-center/deploy-a-django-app-on-app-platform/
+  - https://dev.to/osahenru/using-railway-app-to-deploy-your-django-project-3ah1
+  - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html
